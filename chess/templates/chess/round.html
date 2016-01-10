@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-offset-2">
+            <h2>Номер раунда {{ num_round }}</h2>
+
+            {% if resultNull == 0 %}
+                <h2><a href={% url 'chess:round' comp_id=num_comp pk=2 %}>Начать следующий раунд</a></h2>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+
+            <br>
+
+                <table class="table" border="2">
+
+                    <tr>
+                        <th>Пара игроков</th>
+                        <th>Результаты</th>
+                    </tr>
+
+                    {% for key in players %}
+                        {% for player in players.items %}
+                            {% if key == player.0 %}
+
+                                <tr>
+                                   <td>{{ player.1.name.0 }} - {{ player.1.name.1 }}</td>
+
+                                    {% if player.1.result.0 %}
+                                        <td>{{ player.1.result.0 }} : {{ player.1.result.1 }}</td>
+
+                                    {% else %}
+                                        <td>{{ player.1.result.0 }} : {{ player.1.result.1 }}</td>
+                                    {% endif %}
+
+                                </tr>
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+
+                </table>
+
+        </div>
+    </div>
+    {% if resultNull > 0 %}
+
+        <form action="{% url 'chess:round' comp_id=num_comp pk=num_round %}" method="post">{% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {% for field in form %}
+
+                    {{ field }}
+                {% endfor %}
+
+            {% endfor %}
+
+
+            <input type="submit" value="Push">
+
+        </form>
+
+    {% endif %}
+    <div class=""></div>
+
+{% endblock %}

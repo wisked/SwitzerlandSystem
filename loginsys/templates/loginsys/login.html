@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+{% block login %}
+    <div class="col-md-offset-3 col-md-4">
+        <form action="{% url 'loginsys:login' %}" method="post">
+            {% csrf_token %}
+        <strong>Войдите в систему</strong>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon1"></span>
+            <input class="form-control" type="text" id="username" name="username" placeholder="Имя пользователя" aria-describedby="sizing-addon1"
+                    required>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2"></span>
+            <input class="form-control" type="password" id="password" name="password" placeholder="Пароль" aria-describedby="sizing-addon2"
+                    required>
+        </div>
+            {% if login_error %}
+                <div class="alert alert-danger" role="alert">{{ login_error }}</div>
+            {% endif %}
+        <br>
+            <input class="btn btn-primary btn-default" type="submit" value="Войти">
+        </ul>
+        </form>
+    </div>
+{% endblock %}

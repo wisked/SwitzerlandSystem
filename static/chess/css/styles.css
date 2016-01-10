@@ -1,0 +1,16 @@
+body{
+    /*background-image: url("http://wallpaperfullscreen.com/wp-content/uploads/2015/05/Perfect-Chess-Wallpaper-for-Android.jpg");*/
+}
+
+p.text{
+    color: yellow;
+}
+
+p.rules{
+    color: lightgoldenrodyellow;
+}
+
+strong.super{
+    color: saddlebrown;
+    font-size: large;
+}

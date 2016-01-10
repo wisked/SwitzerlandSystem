@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    {% if username %}
+
+        <div class="col-md-offset-1">
+            {% if rounds %}
+
+                <h4>Необходимое количество раундов: {{ rounds }}</h4>
+                <h4><a href="{% url 'chess:round' comp_id=num_comp pk=1 %}">Начать соревнование</a></h4>
+
+                {% else %}
+
+                    <form class="form-inline" action="{% url 'chess:startCompetition' num_comp %}" method="post">{% csrf_token %}
+                        <div class="form-group">
+
+                            {{ form.places.errors }}
+{#                            {{ form.places.label_tag }}#}
+{#                            <input type="number" name="places" id="{{ form.places.id_for_places }}" required min="1" max="{{ players_count }}">#}
+                            <label class="sr-only" for="{{ form.places.id_for_places }}">{{ form.places.label }}</label>
+                            <div class="input-group">
+                                <input type="number" name="places" id="{{ form.places.id_for_places }}" required min="1" max="{{ players_count }}"
+                                    placeholder="{{ form.places.label }}" style="width: 20em">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </form>
+            {% endif %}
+        </div>
+        <br>
+    {% endif %}
+
+        <div class="col-md-offset-1 col-md-5">
+
+            <h4><a href="{% url 'chess:allRounds' num_comp %}">Количество раундов: {{ rounds }}</a></h4>
+
+            <table class="table table-hover">
+                <caption><h4>Зарегистрированно игроков: {{ players_count }}</h4></caption>
+                <tr>
+                    <th>Номер игрока</th>
+                    <th>Имя игрока</th>
+                    <th>Возраст</th>
+                    <th>Текущий Ello рэйтинг</th>
+                </tr>
+                {% for player in players %}
+                    <tr class="active">
+                        <th>{{ player.id }}</th>
+                        <th>{{ player.name }}</th>
+                        <th>{{ player.age }}</th>
+                        <th>{{ player.curr_ello_rate }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+{% endblock %}

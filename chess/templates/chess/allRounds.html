@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="col-md-offset-2 col-md-6">
+        <div class="list-group">
+            {% for round in rounds %}
+                <a href="{% url 'chess:round' comp_id=comp_id pk=round.num_round %}"
+                   class="list-group-item" title="Просмотреть">{{ round.num_round }} раунд</a>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
